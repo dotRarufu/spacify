@@ -1,0 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    @apply bg-neutral leading-[1.5] text-primary-text font-poppins font-regular;
+  }
+}
+
+@layer components {
+  .bdev1 {
+    @apply border border-red-500;
+  }
+  .bdev2 {
+    @apply border border-blue-500;
+  }
+  .bdev3 {
+    @apply border border-green-500;
+  }
+  .bdev4 {
+    @apply border border-yellow-500;
+  }
+}
