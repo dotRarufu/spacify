@@ -27,7 +27,7 @@ const getNextValue = (factor: number, base: number) => {
 };
 
 const limit = 100;
-const lowestLimitValue = 0.5;
+const lowestLimitValue = 0.25;
 const base = 1;
 
 export const generateFactorValues = (factor: Factor, baseFontSize: number) => {
@@ -71,10 +71,11 @@ export const generateFactorValues = (factor: Factor, baseFontSize: number) => {
   const removeExtraBase = [...valuesToLeft].slice(1);
   const combined = [...removeExtraBase, ...valuesToRight];
   const sortedCombined = sortNumbers(combined, '>');
-  const res = sortedCombined
+  const possibleDuplicate = sortedCombined
     .map(n => roundToNearestHundredth(n))
     .map(n => n * baseFontSize)
     .map(n => nearestDivisibleBy4(n));
+  const removeDuplicates = new Set(possibleDuplicate);
 
-  return res;
+  return [...removeDuplicates];
 };

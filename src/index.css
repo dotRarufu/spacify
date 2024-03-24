@@ -6,7 +6,7 @@
 
 @layer base {
   html {
-    @apply bg-neutral leading-[1.5] text-primary-text font-poppins font-regular;
+    @apply bg-neutral leading-[1.5] text-primary-text font-poppins;
   }
 }
 

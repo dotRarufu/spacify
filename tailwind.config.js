@@ -9,27 +9,25 @@ export default {
         'secondary-text': '#545454',
         'tertiary-text': '#272727',
         'primary-color-500': '#2626D9',
-        'primary-color-700': '#181A21',
+        'primary-color-700': '#13136C',
+        'primary-color-900': '#181A21',
       },
       fontFamily: {
         poppins: ['Poppins', 'sans-serif'],
       },
-      fontWeight: {
-        regular: '400',
-        bold: '700',
-      },
-      borderRadius: {
-        inner: '0.5rem',
-        outer: '1rem',
-      },
-      screens: {
-        sm: '640px',
-        md: '768px',
-        lg: '1024px',
-        xl: '1280px',
-        '2xl': '1536px',
-      },
     },
+    borderRadius: {
+      inner: '0.5rem',
+      outer: '1rem',
+    },
+    screens: {
+      sm: '40rem',
+      md: '48rem',
+      lg: '64rem',
+      xl: '80rem',
+      '2xl': '96rem',
+    },
+    spacing: {},
   },
   plugins: [],
 };

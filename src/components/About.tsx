@@ -1,9 +1,9 @@
 const About = () => {
   return (
-    <div className="flex flex-col sm:flex-row">
-      <h2 className="min-w-[8rem] pr-[2rem] text-secondary-text mb-[0.5rem]">
+    <div className="flex flex-col sm:flex-row items-baseline">
+      <h3 className="min-w-[8rem] pr-[2rem] text-secondary-text mb-[0.5rem]">
         What is this for?
-      </h2>
+      </h3>
       <p>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed lacinia
         odio a ex ullamcorper egestas. Aliquam ornare, sapien sed convallis
