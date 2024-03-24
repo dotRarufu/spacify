@@ -1,45 +1,4 @@
-export type Factor = [number, number];
-
-const getFactorPrime = (base: number, factor: number) => {
-  const nextValue = getNextValue(base, factor);
-  const factorPrime = ((nextValue - base) * 100) / nextValue;
-
-  return factorPrime;
-};
-
-const getNextValue = (base: number, factor: number) => {
-  const nextValue = base + (factor / 100) * base;
-
-  return nextValue;
-};
-
-const findHighestNumber = (numbers: number[]): number => {
-  if (numbers.length === 0) {
-    throw new Error('Array is empty');
-  }
-
-  let highest = numbers[0];
-  for (let i = 1; i < numbers.length; i++) {
-    if (numbers[i] > highest) {
-      highest = numbers[i];
-    }
-  }
-  return highest;
-};
-
-const findLowestNumber = (numbers: number[]): number => {
-  if (numbers.length === 0) {
-    throw new Error('Array is empty');
-  }
-
-  let lowest = numbers[0];
-  for (let i = 1; i < numbers.length; i++) {
-    if (numbers[i] < lowest) {
-      lowest = numbers[i];
-    }
-  }
-  return lowest;
-};
+import { isOdd, nearestDivisibleBy4, roundToNearestHundredth } from './math';
 
 const sortNumbers = (numbers: number[], direction: '>' | '<'): number[] => {
   const sortedNumbers = numbers.slice();
@@ -52,12 +11,26 @@ const sortNumbers = (numbers: number[], direction: '>' | '<'): number[] => {
   }
 };
 
-const isOdd = (n: number) => n % 2 !== 0;
+export type Factor = [number, number];
 
-const limit = 1024;
-const lowestLimitValue = 4;
+const getFactorPrime = (factor: number, base: number) => {
+  const nextValue = getNextValue(factor, base);
+  const factorPrime = ((nextValue - base) * 100) / nextValue;
 
-export const generateFactorValues = (factor: Factor, base: number) => {
+  return factorPrime;
+};
+
+const getNextValue = (factor: number, base: number) => {
+  const nextValue = base + (factor / 100) * base;
+
+  return nextValue;
+};
+
+const limit = 100;
+const lowestLimitValue = 0.5;
+const base = 1;
+
+export const generateFactorValues = (factor: Factor, baseFontSize: number) => {
   const [f1, f2] = factor;
 
   let highestValue = base;
@@ -66,42 +39,42 @@ export const generateFactorValues = (factor: Factor, base: number) => {
 
   // 1. Compute values to right
   while (highestValue < limit) {
-    const currentBase = findHighestNumber([...valuesToRight]);
     const currentFactor = isOdd(valuesToRight.size) ? f2 : f1;
-    const nextValue = Math.ceil(getNextValue(currentBase, currentFactor));
+    const nextValue = getNextValue(currentFactor, highestValue);
 
     valuesToRight.add(nextValue);
     highestValue = nextValue;
   }
 
-  const f1Prime = getFactorPrime(base, f2);
-  const sortedValuesToRight = sortNumbers([...valuesToRight], '>');
-  const basePlusOne = sortedValuesToRight[1];
-  const f2Prime = getFactorPrime(basePlusOne, f1);
+  // Get the factor primes
+  const sorted = sortNumbers([...valuesToRight], '>');
+  const f1Prime = getFactorPrime(f2, sorted[0]);
+  const f2Prime = getFactorPrime(f1, sorted[1]);
+
+  // 3. Compute values to left
   const valuesToLeft = new Set<number>();
   valuesToLeft.add(base);
   let lowestValue = base;
 
-  // 2. Compute values to left
   while (lowestValue > lowestLimitValue) {
     const currentPrime = isOdd(valuesToLeft.size) ? f1Prime : f2Prime;
 
-    const currentBase = findLowestNumber([...valuesToLeft]);
+    const currentBase = lowestValue;
 
-    const previousValue = Math.ceil(
-      currentBase - (currentPrime / 100) * currentBase
-    );
+    const previousValue = currentBase - (currentPrime / 100) * currentBase;
 
     lowestValue = previousValue;
     valuesToLeft.add(previousValue);
   }
 
-  // 3. Combine and return;
-  const combined = [...valuesToLeft, ...valuesToRight];
-  new Set();
-  const res = sortNumbers(combined, '>');
-  // const rounded = res.map(n => Math.ceil(n));
-  console.log('res:', res);
-  // console.log('rounded:', rounded);
+  // 4
+  const removeExtraBase = [...valuesToLeft].slice(1);
+  const combined = [...removeExtraBase, ...valuesToRight];
+  const sortedCombined = sortNumbers(combined, '>');
+  const res = sortedCombined
+    .map(n => roundToNearestHundredth(n))
+    .map(n => n * baseFontSize)
+    .map(n => nearestDivisibleBy4(n));
+
   return res;
 };

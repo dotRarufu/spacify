@@ -10,9 +10,9 @@ function App() {
   const [baseValue, setBaseValue] = useState(16);
 
   // for clipboard
-  const [selected, setSelected] = useState();
+  // const [selected, setSelected] = useState();
 
-  console.log(generateFactorValues(factor, 16));
+  console.log(generateFactorValues(factor, baseValue));
 
   return (
     <div className="p-[1rem] max-w-[520px] sm:p-0 mx-auto sm:py-[4rem]">
