@@ -1,16 +1,21 @@
 const About = () => {
+  const repoLink = "https://github.com/dotRarufu/spacify";
+
   return (
-    <div className="flex flex-col sm:flex-row items-baseline">
-      <h3 className="min-w-[8rem] pr-[2rem] text-secondary-text mb-[0.5rem]">
+    <div className="flex flex-col items-baseline sm:flex-row">
+      <h3 className="mb-[0.5rem] min-w-[8rem] pr-[2rem] text-secondary-text">
         What is this for?
       </h3>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed lacinia
-        odio a ex ullamcorper egestas. Aliquam ornare, sapien sed convallis
-        maximus, libero erat pretium mauris, quis iaculis dolor nisl ut ante.
-        Fusce nisl quam, molestie tincidunt maximus eu, posuere eget ante.
-        Integer pellentesque velit sed tellus imperdiet, id{' '}
-      </p>
+      <div className="w-full">
+        <p className="max-w-[30ch] ">
+          Stop thinking about how much far should element A be from element B.
+          Spacify is a spacing and sizing system. It generates values that you
+          can just copy and paste to your design.{" "}
+          <a className="hover:underline" href={repoLink}>
+            Read more
+          </a>
+        </p>
+      </div>
     </div>
   );
 };

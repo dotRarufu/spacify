@@ -5,16 +5,28 @@ import About from "./components/About";
 import { Factor, generateFactorValues } from "./utils/utils";
 import Dropdown from "./components/Dropdown";
 import { useCopyToClipboard } from "react-use";
-import toast, { Toaster, useToasterStore } from "react-hot-toast";
+import toast, { DefaultToastOptions, Toaster } from "react-hot-toast";
+import useToastLimit from "./components/hooks/useToastLimit";
 
-const TOAST_LIMIT = 2;
+const toastSettings: DefaultToastOptions = {
+  position: "bottom-center",
+  style: {
+    border: "1px solid #13136C",
+    borderRadius: "1rem",
+    background: "#131313",
+    color: "#fff",
+  },
+};
 
-function App() {
+const App = () => {
   const [factor, setFactor] = useState<Factor>([10, 40]);
   const [baseValue] = useState(16);
   const [values, setValues] = useState<number[]>([]);
   const [selectedValue, setSelectedValue] = useState<number | null>(null);
+
+  useToastLimit();
   const [clipboardState, copyToClipboard] = useCopyToClipboard();
+
   const changeFactor = (f: Factor) => setFactor(f);
   const selectValue = (n: number) => () => {
     setSelectedValue(n);
@@ -27,36 +39,15 @@ function App() {
     toast.success("Copied to clipboard");
   };
 
-  const { toasts } = useToasterStore();
-
-  // Enforce Limit
-  useEffect(() => {
-    toasts
-      .filter((t) => t.visible) // Only consider visible toasts
-      .filter((_, i) => i >= TOAST_LIMIT) // Is toast index over limit
-      .forEach((t) => toast.dismiss(t.id)); // Dismiss – Use toast.remove(t.id) removal without animation
-  }, [toasts]);
-
   useEffect(() => {
     setValues(generateFactorValues(factor, baseValue));
   }, [baseValue, factor]);
 
   return (
     <div className="sm:p-0  mx-auto max-w-[40rem] p-[1rem] sm:py-[4rem]">
-      <Toaster
-        toastOptions={{
-          position: "bottom-center",
-          style: {
-            border: "1px solid #13136C",
-            borderRadius: "1rem",
-            background: "#131313",
-            color: "#fff",
-          },
-        }}
-      />
+      <Toaster toastOptions={toastSettings} />
       <Header />
-      {/* idea: show graph in large screens */}
-      {/* idea: add way to change base value */}
+
       <main className="flex flex-col gap-[2rem]">
         <Dropdown changeFactor={changeFactor} activeFactor={factor} />
 
@@ -64,7 +55,7 @@ function App() {
 
         <div className="flex flex-col items-baseline sm:flex-row">
           <h3
-            className=" mb-[0.5rem] min-w-[8rem] text-secondary-text"
+            className="mb-[0.5rem] min-w-[8rem] text-secondary-text"
             children="Values"
           />
 
@@ -90,6 +81,6 @@ function App() {
       </main>
     </div>
   );
-}
+};
 
 export default App;
