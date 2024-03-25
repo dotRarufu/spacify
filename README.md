@@ -52,6 +52,7 @@ The book mentioned that a difference between two values only make a perceivable 
 This means that the factor should be
 
 F1 > 25
+
 F2 - F1 > 25
 
 ### But why are there two values?
