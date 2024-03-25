@@ -30,7 +30,7 @@ Factor is: 30 - 50 (3:5)
 24 plus its 30% = 32
 32 plus its 50% = 48
 
-Yes, it is alternating ([see why](#but-why-are-there-two-values? "SPOILER: I don't know why"))
+Yes, it is alternating ([see why](https://github.com/dotRarufu/spacify?tab=readme-ov-file#but-why-are-there-two-values "SPOILER: I don't know why"))
 
 Now we solve for values generated under multiplier 1
 
@@ -60,4 +60,4 @@ I also don't know why. But the book's example suggest that there should be two v
 
 # Motivation
 
-Personally, I don't want to bring up my calculator every time I create a project's spacing and sizing system. This is more of a personal tool, but I released it because maybe you don't want that experience as well.
+Personally, I don't want to bring up my calculator every time I create a project's spacing and sizing system. This is more of a personal tool, but I made it because maybe you don't want that experience as well.
