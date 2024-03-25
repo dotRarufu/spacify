@@ -1,6 +1,6 @@
 export const findHighestNumber = (numbers: number[]): number => {
   if (numbers.length === 0) {
-    throw new Error('Array is empty');
+    throw new Error("Array is empty");
   }
 
   let highest = numbers[0];
@@ -14,7 +14,7 @@ export const findHighestNumber = (numbers: number[]): number => {
 
 export const findLowestNumber = (numbers: number[]): number => {
   if (numbers.length === 0) {
-    throw new Error('Array is empty');
+    throw new Error("Array is empty");
   }
 
   let lowest = numbers[0];
@@ -41,4 +41,19 @@ export const nearestDivisibleBy4 = (num: number): number => {
   } else {
     return nearestUpper;
   }
+};
+
+export const getLowestRatio = (value1: number, value2: number): string => {
+  const gcd = (a: number, b: number): number => {
+    if (b === 0) {
+      return a;
+    }
+    return gcd(b, a % b);
+  };
+
+  const divisor = gcd(value1, value2);
+  const x = value1 / divisor;
+  const y = value2 / divisor;
+
+  return `${x} : ${y}`;
 };

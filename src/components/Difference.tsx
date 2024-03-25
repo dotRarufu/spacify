@@ -1,17 +1,14 @@
-import { isOdd } from '../utils/math';
-import { Factor } from '../utils/utils';
+import { useContext } from "react";
+import GlobalContext from "../contexts/globalContext";
+import { isOdd } from "../utils/math";
 
-type DifferenceProps = {
-  values: number[];
-  selected: number | null;
-  factor: Factor;
-};
+const Difference = () => {
+  const {
+    activeFactor: [f1, f2],
+    selectedValue: selected,
+    values,
+  } = useContext(GlobalContext)!;
 
-const Difference = ({
-  selected,
-  values,
-  factor: [f1, f2],
-}: DifferenceProps) => {
   const renderNoValue = () => {
     if (!selected)
       return (
@@ -41,8 +38,8 @@ const Difference = ({
     const previousValue = values[indexSelected - 1];
     const selectedIsEven = !isOdd(indexSelected);
     const increase = selectedIsEven ? f1 : f2;
-    console.log('selected:', selected);
-    console.log('selectedIsEven:', selectedIsEven);
+    console.log("selected:", selected);
+    console.log("selectedIsEven:", selectedIsEven);
     if (previousValue) {
       return (
         <>
@@ -50,11 +47,11 @@ const Difference = ({
             style={{
               width: `${100 - increase}%`,
             }}
-            className="bg-primary-color-900 rounded-inner px-[0.5rem] py-[0.5rem] text-end"
+            className="rounded-inner bg-primary-color-900 px-[0.5rem] py-[0.5rem] text-end"
           >
             {previousValue}
           </p>
-          <p className="bg-primary-color-900 rounded-inner px-[0.5rem] py-[0.5rem] w-full text-end">
+          <p className="w-full rounded-inner bg-primary-color-900 px-[0.5rem] py-[0.5rem] text-end">
             {selected}
           </p>
           <p className="text-tertiary-text">{increase}% increase</p>
@@ -64,12 +61,12 @@ const Difference = ({
   };
 
   return (
-    <div className="flex flex-col sm:flex-row items-baseline">
-      <h3 className="min-w-[8rem] text-secondary-text mb-[0.5rem]">
+    <div className="flex flex-col items-baseline sm:flex-row">
+      <h3 className="mb-[0.5rem] min-w-[8rem] text-secondary-text">
         Difference
       </h3>
 
-      <div className="min-h-[5.625rem] flex w-full max-w-[320px] flex-col gap-[0.5rem]">
+      <div className="flex min-h-[5.625rem] w-full max-w-[320px] flex-col gap-[0.5rem]">
         {renderNoValue()}
 
         {renderSelectAnother()}

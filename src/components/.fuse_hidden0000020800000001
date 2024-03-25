@@ -1,0 +1,12 @@
+import Test2 from "./Test2";
+
+const Test = () => {
+  return (
+    <div className=" bdev1  ml-[50px] mt-[50px] h-[50vw] w-1/2">
+      Root
+      <Test2 />
+    </div>
+  );
+};
+
+export default Test;
