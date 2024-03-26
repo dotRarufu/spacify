@@ -65,7 +65,7 @@ const Modal = ({ isActive, close }: ModalProps) => {
   return (
     <dialog
       ref={modalRef}
-      className="absolute left-[0] top-1/2 h-fit w-screen max-w-[15.875rem] -translate-y-1/2 rounded-outer bg-neutral p-[1.5rem] shadow-2xl shadow-primary-color-500  sm:left-[1rem] sm:translate-y-[0]"
+      className="absolute left-[0] top-1/2 z-[2] h-fit w-screen max-w-[15.875rem] -translate-y-1/2 rounded-outer bg-neutral p-[1.5rem] shadow-2xl  shadow-primary-color-500 sm:left-[1rem] sm:translate-y-[0]"
     >
       <h3 className="mb-[1rem] text-primary-text">Custom value</h3>
       <div className="flex flex-col gap-[0.5rem]">
