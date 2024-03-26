@@ -99,7 +99,7 @@ const Modal = ({ isActive, close }: ModalProps) => {
       <div className="mt-[1.5rem] flex flex-col gap-[0.5rem]">
         <button
           onClick={closeModal}
-          className="p-[0.5rem] uppercase text-secondary-text hover:text-primary-text"
+          className="rounded-inner p-[0.5rem] uppercase text-secondary-text hover:text-primary-text"
         >
           Close
         </button>

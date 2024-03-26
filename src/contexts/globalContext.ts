@@ -9,6 +9,8 @@ type GlobalContextValues = {
   addFactor: (f: Factor) => void;
   values: number[];
   selectedValue: number | null;
+  base: number;
+  changeBase: (n: number) => void;
 };
 
 const GlobalContext = createContext<GlobalContextValues | null>(null);

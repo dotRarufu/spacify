@@ -16,7 +16,7 @@ const Dropdown = () => {
   const [isModalActive, setIsModalActive] = useState(false);
   const openModal = () => setIsModalActive(true);
   const closeModal = () => setIsModalActive(false);
-  console.log("dropdown rerenders");
+
   const changeActiveFactor = (f: Factor) => () => changeFactor(f);
   return (
     <div className="flex flex-col items-baseline sm:flex-row">
@@ -31,7 +31,7 @@ const Dropdown = () => {
           <ArrowDown />
         </p>
         {isActive && (
-          <div className="left-0 top-0 absolute mt-[0.25rem] w-full overflow-clip rounded-inner border border-primary-color-700 bg-neutral shadow-md shadow-primary-color-500">
+          <div className="left-0 top-0 absolute z-[1] mt-[0.25rem] w-full overflow-clip rounded-inner border border-primary-color-700 bg-neutral shadow-md shadow-primary-color-500">
             {factors.map(([f1, f2]) => (
               <p
                 key={`${f1} ${f2}`}

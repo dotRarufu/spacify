@@ -8,6 +8,7 @@ import { useCopyToClipboard } from "react-use";
 import toast, { DefaultToastOptions, Toaster } from "react-hot-toast";
 import useToastLimit from "./components/hooks/useToastLimit";
 import GlobalContext from "./contexts/globalContext";
+import Base from "./components/Base";
 
 const toastSettings: DefaultToastOptions = {
   position: "bottom-center",
@@ -27,7 +28,7 @@ const defaultFactors: Factor[] = [
 
 const App = () => {
   const [factor, setFactor] = useState<Factor>([10, 40]);
-  const [baseValue] = useState(16);
+  const [base, setBase] = useState(16);
   const [values, setValues] = useState<number[]>([]);
   const [selectedValue, setSelectedValue] = useState<number | null>(null);
   const [factors, setFactors] = useState(defaultFactors);
@@ -35,6 +36,7 @@ const App = () => {
   useToastLimit();
   const [clipboardState, copyToClipboard] = useCopyToClipboard();
 
+  const changeBase = (n: number) => setBase(n);
   const changeFactor = (f: Factor) => setFactor(f);
   const selectValue = (n: number) => () => {
     setSelectedValue(n);
@@ -59,22 +61,22 @@ const App = () => {
     addFactor,
     values,
     selectedValue,
+    base,
+    changeBase,
   };
 
   useEffect(() => {
-    setValues(generateFactorValues(factor, baseValue));
-  }, [baseValue, factor]);
+    setValues(generateFactorValues(factor, base));
+  }, [base, factor]);
 
   return (
     <GlobalContext.Provider value={globalContextValues}>
       <div className="sm:p-0 mx-auto max-w-[40rem] p-[1rem] sm:py-[4rem]">
         <Toaster toastOptions={toastSettings} />
         <Header />
-
         <main className="flex flex-col gap-[2rem]">
           <Dropdown />
-
-          <Difference />
+          <Base />
 
           <div className="flex flex-col items-baseline sm:flex-row">
             <h3
@@ -99,6 +101,7 @@ const App = () => {
               ))}
             </ul>
           </div>
+          <Difference />
 
           <About />
         </main>

@@ -8,6 +8,22 @@
   html {
     @apply bg-neutral font-poppins leading-[1.5] text-primary-text;
   }
+
+  /* Remove input type number arrows */
+  /* Chrome */
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  /* Firefox */
+  input[type="number"] {
+    -moz-appearance: textfield;
+  }
+
+  input:focus {
+    outline: none;
+  }
 }
 
 @layer components {
