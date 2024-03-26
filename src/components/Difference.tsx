@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import GlobalContext from "../contexts/globalContext";
 import { isOdd } from "../utils/math";
+import { motion } from "framer-motion";
 
 const Difference = () => {
   const {
@@ -38,19 +39,19 @@ const Difference = () => {
     const previousValue = values[indexSelected - 1];
     const selectedIsEven = !isOdd(indexSelected);
     const increase = selectedIsEven ? f1 : f2;
-    console.log("selected:", selected);
-    console.log("selectedIsEven:", selectedIsEven);
+
     if (previousValue) {
       return (
         <>
-          <p
+          <motion.p
+            layout
             style={{
               width: `${100 - increase}%`,
             }}
             className="rounded-inner bg-primary-color-900 px-[0.5rem] py-[0.5rem] text-end"
           >
             {previousValue}
-          </p>
+          </motion.p>
           <p className="w-full rounded-inner bg-primary-color-900 px-[0.5rem] py-[0.5rem] text-end">
             {selected}
           </p>
@@ -61,19 +62,26 @@ const Difference = () => {
   };
 
   return (
-    <div className="flex flex-col items-baseline sm:flex-row">
+    <motion.div
+      layout="position"
+      transition={{
+        bounce: 0,
+        bounceDamping: 0,
+      }}
+      className="flex flex-col items-baseline sm:flex-row"
+    >
       <h3 className="mb-[0.5rem] min-w-[8rem] text-secondary-text">
-        Difference
+        <div className="w-fit">Difference</div>
       </h3>
 
-      <div className="flex min-h-[5.625rem] w-full max-w-[320px] flex-col gap-[0.5rem]">
+      <div className="flex   w-full max-w-[320px] flex-col gap-[0.5rem]">
         {renderNoValue()}
 
         {renderSelectAnother()}
 
         {renderDifference()}
       </div>
-    </div>
+    </motion.div>
   );
 };
 

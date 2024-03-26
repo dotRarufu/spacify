@@ -1,8 +1,13 @@
+import { motion } from "framer-motion";
+
 const About = () => {
   const repoLink = "https://github.com/dotRarufu/spacify";
 
   return (
-    <div className="flex flex-col items-baseline sm:flex-row">
+    <motion.div
+      layout="position"
+      className="flex flex-col items-baseline sm:flex-row"
+    >
       <h3 className="mb-[0.5rem] min-w-[8rem] pr-[2rem] text-secondary-text">
         What is this for?
       </h3>
@@ -16,7 +21,7 @@ const About = () => {
           </a>
         </p>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

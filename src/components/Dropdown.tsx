@@ -4,6 +4,8 @@ import { useClickAway } from "react-use";
 import { Factor } from "../utils/utils";
 import Modal from "./Modal";
 import GlobalContext from "../contexts/globalContext";
+import { AnimatePresence, Variants, motion } from "framer-motion";
+import fullConfig from "../utils/theme";
 
 const Dropdown = () => {
   const { changeFactor, factors, activeFactor } = useContext(GlobalContext)!;
@@ -16,6 +18,14 @@ const Dropdown = () => {
   const [isModalActive, setIsModalActive] = useState(false);
   const openModal = () => setIsModalActive(true);
   const closeModal = () => setIsModalActive(false);
+  const variant: Variants = {
+    initial: {
+      backgroundColor: fullConfig.theme.colors["neutral"],
+    },
+    hoverOrTapped: {
+      backgroundColor: fullConfig.theme.colors["primary-color-500"],
+    },
+  };
 
   const changeActiveFactor = (f: Factor) => () => changeFactor(f);
   return (
@@ -26,32 +36,78 @@ const Dropdown = () => {
         className="relative min-w-[8rem]"
         onClick={handleClick}
       >
-        <p className="flex cursor-pointer items-center justify-between gap-[0.5rem] rounded-inner border border-primary-color-500 px-[0.75rem] py-[0.5rem] hover:bg-primary-color-500">
+        {/* //todo: improve html semantics */}
+        <motion.p
+          className="flex cursor-pointer items-center justify-between gap-[0.5rem] rounded-inner border border-primary-color-500 px-[0.75rem] py-[0.5rem]"
+          variants={variant}
+          initial="initial"
+          whileHover="hoverOrTapped"
+        >
           {activeFactor[0]} - {activeFactor[1]}
           <ArrowDown />
-        </p>
-        {isActive && (
-          <div className="left-0 top-0 absolute z-[1] mt-[0.25rem] w-full overflow-clip rounded-inner border border-primary-color-700 bg-neutral shadow-md shadow-primary-color-500">
-            {factors.map(([f1, f2]) => (
-              <p
-                key={`${f1} ${f2}`}
-                onClick={changeActiveFactor([f1, f2])}
-                className="cursor-pointer px-[0.75rem] py-[0.5rem] hover:bg-primary-color-500 "
-              >
-                {f1} - {f2}
-              </p>
-            ))}
-            <p
-              className="cursor-pointer px-[0.75rem] py-[0.5rem] hover:bg-primary-color-500"
-              onClick={openModal}
+        </motion.p>
+        <AnimatePresence>
+          {isActive && (
+            <motion.div
+              exit={{
+                height: 0,
+                boxShadow: "none",
+                opacity: 0,
+              }}
+              initial={{
+                height: 0,
+                boxShadow: "none",
+                opacity: 0,
+              }}
+              variants={{
+                takeFullHeight: {
+                  height: "fit-content",
+                  opacity: 1,
+                  transition: {
+                    duration: 0.3,
+                  },
+                },
+                shadow: {
+                  transition: {
+                    delay: 0.15,
+                  },
+                  // todo: use tailwind theme instead of hardcoded like this
+                  boxShadow:
+                    "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgb(30, 30, 174) 0px 4px 6px -1px, rgb(30, 30, 174) 0px 2px 4px -2px",
+                },
+              }}
+              animate={["takeFullHeight", "shadow"]}
+              className="left-0 top-0 absolute z-[1] mt-[0.25rem] w-full overflow-clip rounded-inner border border-primary-color-700 bg-neutral"
             >
-              Custom
-            </p>
-          </div>
-        )}
+              {factors.map(([f1, f2]) => (
+                <motion.p
+                  variants={variant}
+                  initial="initial"
+                  whileHover="hoverOrTapped"
+                  whileTap="hoverOrTapped"
+                  key={`${f1} ${f2}`}
+                  onClick={changeActiveFactor([f1, f2])}
+                  className="cursor-pointer px-[0.75rem] py-[0.5rem]"
+                >
+                  {f1} - {f2}
+                </motion.p>
+              ))}
+              <motion.p
+                variants={variant}
+                initial="initial"
+                whileHover="hoverOrTapped"
+                whileTap="hoverOrTapped"
+                className="cursor-pointer px-[0.75rem] py-[0.5rem]"
+                onClick={openModal}
+              >
+                Custom
+              </motion.p>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
 
-      <div className="self-start sm:relative ">
+      <div className="relative self-start sm:relative ">
         <Modal isActive={isModalActive} close={closeModal} />
       </div>
     </div>

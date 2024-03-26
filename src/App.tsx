@@ -9,6 +9,7 @@ import toast, { DefaultToastOptions, Toaster } from "react-hot-toast";
 import useToastLimit from "./components/hooks/useToastLimit";
 import GlobalContext from "./contexts/globalContext";
 import Base from "./components/Base";
+import { AnimatePresence, motion } from "framer-motion";
 
 const toastSettings: DefaultToastOptions = {
   position: "bottom-center",
@@ -84,22 +85,30 @@ const App = () => {
               children="Values"
             />
 
-            <ul className="flex w-full max-w-[20rem] flex-wrap overflow-clip rounded-outer bg-primary-color-900">
+            <motion.ul
+              layout="preserve-aspect"
+              transition={{
+                bounce: 0,
+                bounceDamping: 0,
+              }}
+              className="flex w-full max-w-[20rem] flex-wrap overflow-clip rounded-outer bg-primary-color-900"
+            >
               {values.map((v) => (
-                <li
-                  onClick={selectValue(v)}
-                  key={v}
-                  className={
-                    "min-w-[4em] cursor-pointer  py-[1rem] text-center shadow-md shadow-transparent hover:bg-primary-color-500 hover:shadow-md hover:shadow-primary-color-500" +
-                    " " +
-                    (selectedValue && selectedValue === v
-                      ? "bg-primary-color-500"
-                      : "")
-                  }
-                  children={v}
-                />
+                <AnimatePresence key={v}>
+                  <li
+                    onClick={selectValue(v)}
+                    className={
+                      "min-w-[4em] cursor-pointer py-[1rem] text-center shadow-md shadow-transparent transition-transform hover:scale-110 hover:bg-primary-color-500 hover:shadow-md hover:shadow-primary-color-500" +
+                      " " +
+                      (selectedValue && selectedValue === v
+                        ? "bg-primary-color-500"
+                        : "")
+                    }
+                    children={v}
+                  />
+                </AnimatePresence>
               ))}
-            </ul>
+            </motion.ul>
           </div>
           <Difference />
 
