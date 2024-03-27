@@ -13,6 +13,7 @@ import Settings from "./components/Settings";
 import { defaultFactors } from "./defaultFactors";
 import { toastSettings } from "./toastSettings";
 import Values from "./components/Values";
+import Tools from "./components/Tools";
 
 const App = () => {
   const [factor, setFactor] = useState<Factor>([10, 40]);
@@ -68,7 +69,7 @@ const App = () => {
 
   return (
     <GlobalContext.Provider value={globalContextValues}>
-      <div className="sm:p-0 mx-auto max-w-[30rem] p-[1rem] sm:py-[4rem]">
+      <div className="sm:p-0 mx-auto max-w-[32.5rem] p-[1rem] sm:py-[4rem]">
         <Toaster toastOptions={toastSettings} />
         <Header />
         <main className="flex flex-col gap-[2rem]">
@@ -78,10 +79,20 @@ const App = () => {
           <Values />
           <Difference />
           <About />
+          <Tools />
         </main>
 
-        <footer className="my-[2rem] text-tertiary-text">
-          <p>v.0.2.1</p>
+        <footer className="mb-[1rem] mt-[8rem] flex flex-col text-center text-tertiary-text">
+          <p>v.0.4.0</p>
+          <p>
+            by{" "}
+            <a
+              className="transition-colors hover:text-primary-text hover:underline"
+              href="https://github.com/dotRarufu/"
+            >
+              dotRarufu
+            </a>
+          </p>
         </footer>
       </div>
     </GlobalContext.Provider>
