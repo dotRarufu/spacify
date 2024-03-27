@@ -129,6 +129,7 @@ const App = () => {
           <Difference />
 
           <About />
+          <div className="text-tertiary-text">v.0.2.1</div>
         </main>
       </div>
     </GlobalContext.Provider>
