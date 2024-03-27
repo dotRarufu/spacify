@@ -6,7 +6,7 @@
 
 @layer base {
   html {
-    @apply bg-neutral font-poppins leading-[1.5] text-primary-text;
+    @apply bg-neutral font-poppins text-[1.25rem] leading-[1.5] text-primary-text;
   }
 
   /* Remove input type number arrows */

@@ -7,6 +7,7 @@ import {
 import { ChangeEvent, useEffect, useState } from "react";
 import fullConfig from "../utils/theme";
 import Bulb from "./icons/Bulb";
+import { repoLink } from "./About";
 
 type InputProps = {
   changeValue: (value: number | null) => void;
@@ -53,7 +54,7 @@ const Input = ({ changeValue, value, number, otherValue }: InputProps) => {
   const renderTip = () => {
     const content = (
       <>
-        <span className="flex">
+        <span className=" flex aspect-square w-[1.25rem]">
           <Bulb />
         </span>
 
@@ -88,7 +89,9 @@ const Input = ({ changeValue, value, number, otherValue }: InputProps) => {
 
       <AnimatePresence>
         {isFocused && (
-          <motion.div
+          <motion.a
+            href={repoLink}
+            target="_blank"
             initial={{
               opacity: 0,
             }}
@@ -101,7 +104,7 @@ const Input = ({ changeValue, value, number, otherValue }: InputProps) => {
             className="flex items-center gap-[0.5rem]  pr-[0.5rem] text-secondary-text"
           >
             {renderTip()}
-          </motion.div>
+          </motion.a>
         )}
       </AnimatePresence>
     </motion.div>

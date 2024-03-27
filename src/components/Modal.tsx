@@ -134,7 +134,14 @@ const Modal = ({ isActive, close }: ModalProps) => {
       <div className="mt-[1rem] flex justify-between">
         <label className="text-secondary-text">Ratio</label>
 
-        <p className="text-primary-text">
+        <p
+          style={{
+            color:
+              fullConfig.theme.colors[
+                value1 && value2 ? "primary-text" : "secondary-text"
+              ],
+          }}
+        >
           {value1 && value2 ? getLowestRatio(value1, value2) : "?"}
         </p>
       </div>

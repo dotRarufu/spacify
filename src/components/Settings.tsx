@@ -46,7 +46,7 @@ const Settings = () => {
           <motion.div
             variants={variant}
             className={
-              "border-primar-color-500 absolute left-1/2 top-1/2  -z-[1] aspect-square w-full -translate-x-1/2 -translate-y-1/2 " +
+              "border-primar-color-500 absolute left-1/2 top-1/2  -z-[1] aspect-square w-full -translate-x-1/2 -translate-y-1/2" +
               " "
             }
             animate={backgroundControl}
@@ -60,7 +60,7 @@ const Settings = () => {
           <input
             checked={isChecked}
             onChange={(e) => setIsChecked(e.currentTarget.checked)}
-            className="relative z-[2] aspect-square h-[1.25rem] appearance-none"
+            className="relative z-[2] aspect-square h-[1.25rem] cursor-pointer appearance-none"
             type="checkbox"
           />
           <AnimatePresence>

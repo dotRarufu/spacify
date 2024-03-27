@@ -1,8 +1,7 @@
 import { motion } from "framer-motion";
 
+export const repoLink = "https://github.com/dotRarufu/spacify";
 const About = () => {
-  const repoLink = "https://github.com/dotRarufu/spacify";
-
   return (
     <motion.div
       layout="position"
