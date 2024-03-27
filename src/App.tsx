@@ -12,6 +12,7 @@ import Base from "./components/Base";
 import Settings from "./components/Settings";
 import { defaultFactors } from "./defaultFactors";
 import { toastSettings } from "./toastSettings";
+import Values from "./components/Values";
 
 const App = () => {
   const [factor, setFactor] = useState<Factor>([10, 40]);
@@ -24,7 +25,11 @@ const App = () => {
   useToastLimit();
   const [clipboardState, copyToClipboard] = useCopyToClipboard();
 
-  const changeBase = (n: number) => setBase(n);
+  const changeBase = (n: number | null) => {
+    if (!n) return;
+
+    setBase(n);
+  };
   const changeFactor = (f: Factor) => setFactor(f);
   const selectValue = (n: number) => () => {
     setSelectedValue(n);
@@ -63,13 +68,14 @@ const App = () => {
 
   return (
     <GlobalContext.Provider value={globalContextValues}>
-      <div className="sm:p-0 mx-auto max-w-[40rem] p-[1rem] sm:py-[4rem]">
+      <div className="sm:p-0 mx-auto max-w-[30rem] p-[1rem] sm:py-[4rem]">
         <Toaster toastOptions={toastSettings} />
         <Header />
         <main className="flex flex-col gap-[2rem]">
           <Dropdown />
           <Base />
           <Settings />
+          <Values />
           <Difference />
           <About />
         </main>

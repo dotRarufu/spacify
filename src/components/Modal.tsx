@@ -137,7 +137,7 @@ const Modal = ({ isActive, close }: ModalProps) => {
             color: colors[value1 && value2 ? "primary-text" : "secondary-text"],
           }}
         >
-          {value1 && value2 ? getLowestRatio(value1, value2) : "?"}
+          {value1 && value2 ? getLowestRatio(value1, value2) : ""}
         </p>
       </div>
 

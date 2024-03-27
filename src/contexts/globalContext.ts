@@ -10,7 +10,7 @@ type GlobalContextValues = {
   values: number[];
   selectedValue: number | null;
   base: number;
-  changeBase: (n: number) => void;
+  changeBase: (n: number | null) => void;
   changeSettings: (isDivisibleBy4: boolean) => void;
 };
 

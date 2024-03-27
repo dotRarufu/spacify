@@ -67,7 +67,7 @@ const Input = ({ changeValue, value, number, otherValue }: InputProps) => {
 
     if (number === 1) return content;
 
-    return otherValue ? content : "";
+    return otherValue && otherValue < 76 ? content : "";
   };
 
   return (

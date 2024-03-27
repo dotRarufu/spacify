@@ -32,12 +32,19 @@ const tipVariant = {
 };
 
 const Base = () => {
-  const [value, setValue] = useState(16);
+  const [value, setValue] = useState<number | null>(16);
   const { changeBase } = useContext(GlobalContext)!;
   const [isFocused, setIsFocused] = useState(false);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { value, min, max } = event.target;
+
+    if (value === "") {
+      setValue(null);
+
+      return;
+    }
+
     const newValue = Math.max(
       Number(min),
       Math.min(Number(max), Number(value)),
@@ -68,7 +75,7 @@ const Base = () => {
           max={999}
           type="number"
           className="text-secondary w-full rounded-inner border border-primary-color-500 bg-transparent  p-[0.5rem] text-primary-text"
-          value={value}
+          value={value || ""}
           onChange={handleChange}
           variants={inputVariant}
           initial="noOutline"
@@ -87,7 +94,7 @@ const Base = () => {
         <AnimatePresence>
           {isFocused && (
             <motion.p
-              className="absolute left-[0] translate-y-full whitespace-nowrap text-[1rem] text-secondary-text"
+              className="absolute left-[0] top-full whitespace-nowrap text-[1rem] text-secondary-text"
               variants={tipVariant}
             >
               Tip: 16 is a good start
