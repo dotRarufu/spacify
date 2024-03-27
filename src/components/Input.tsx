@@ -5,15 +5,26 @@ import {
   useAnimationControls,
 } from "framer-motion";
 import { ChangeEvent, useEffect, useState } from "react";
-import fullConfig from "../utils/theme";
+
 import Bulb from "./icons/Bulb";
 import { repoLink } from "./About";
+import { colors } from "../utils/theme";
+import { opacityVariant } from "../variants/opacityVariant";
 
 type InputProps = {
   changeValue: (value: number | null) => void;
   value: number | null;
   number: 1 | 2;
   otherValue: number | null;
+};
+
+const inputVariant: Variants = {
+  inactive: {
+    border: "1px solid " + colors["primary-color-700"],
+  },
+  active: {
+    border: "1px solid " + colors["primary-color-500"],
+  },
 };
 
 const Input = ({ changeValue, value, number, otherValue }: InputProps) => {
@@ -41,20 +52,11 @@ const Input = ({ changeValue, value, number, otherValue }: InputProps) => {
     changeValue(newValue);
   };
 
-  const inputVariant: Variants = {
-    inactive: {
-      border: "1px solid " + fullConfig.theme.colors["primary-color-700"],
-    },
-    active: {
-      border: "1px solid " + fullConfig.theme.colors["primary-color-500"],
-    },
-  };
-
   const tip = number === 1 ? 25 : Number(otherValue) + 25;
   const renderTip = () => {
     const content = (
       <>
-        <span className=" flex aspect-square w-[1.25rem]">
+        <span className=" flex aspect-square w-[1.15rem]">
           <Bulb />
         </span>
 
@@ -97,16 +99,11 @@ const Input = ({ changeValue, value, number, otherValue }: InputProps) => {
           <motion.a
             href={repoLink}
             target="_blank"
-            initial={{
-              opacity: 0,
-            }}
-            animate={{
-              opacity: 1,
-            }}
-            exit={{
-              opacity: 0,
-            }}
-            className="flex items-center gap-[0.5rem]  pr-[0.5rem] text-secondary-text"
+            variants={opacityVariant}
+            initial="invisible"
+            exit="invisible"
+            animate="visible"
+            className="flex items-center gap-[0.5rem] pr-[0.5rem] text-secondary-text"
           >
             {renderTip()}
           </motion.a>

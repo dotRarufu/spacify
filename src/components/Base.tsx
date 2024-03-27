@@ -3,7 +3,33 @@ import Check from "./icons/Check";
 import GlobalContext from "../contexts/globalContext";
 import { buttonPrimary } from "../variants/buttonPrimary";
 import { AnimatePresence, Variants, motion } from "framer-motion";
-import fullConfig from "../utils/theme";
+import { colors } from "../utils/theme";
+
+const inputVariant: Variants = {
+  noOutline: {
+    outlineStyle: "solid",
+    outlineWidth: "0px",
+    outlineColor: colors["primary-color-700"],
+  },
+  visibleOutline: {
+    outlineWidth: "1px",
+    outlineColor: colors["primary-color-500"],
+  },
+};
+const tipVariant = {
+  initial: {
+    opacity: 0,
+    y: "0.25rem",
+  },
+  animate: {
+    y: "0rem",
+    opacity: 1,
+  },
+  exit: {
+    opacity: 0,
+    y: "0.25rem",
+  },
+};
 
 const Base = () => {
   const [value, setValue] = useState(16);
@@ -21,18 +47,6 @@ const Base = () => {
   };
 
   const handleDone = () => changeBase(value);
-
-  const inputVariant: Variants = {
-    noOutline: {
-      outlineStyle: "solid",
-      outlineWidth: "0px",
-      outlineColor: fullConfig.theme.colors["primary-color-700"],
-    },
-    visibleOutline: {
-      outlineWidth: "1px",
-      outlineColor: fullConfig.theme.colors["primary-color-500"],
-    },
-  };
 
   return (
     <div className="flex flex-col items-baseline sm:flex-row">
@@ -74,19 +88,7 @@ const Base = () => {
           {isFocused && (
             <motion.p
               className="absolute left-[0] translate-y-full whitespace-nowrap text-[1rem] text-secondary-text"
-              initial={{
-                opacity: 0,
-                y: "0.25rem",
-              }}
-              animate={{
-                // y: "0.25rem",
-                y: "0rem",
-                opacity: 1,
-              }}
-              exit={{
-                opacity: 0,
-                y: "0.25rem",
-              }}
+              variants={tipVariant}
             >
               Tip: 16 is a good start
             </motion.p>

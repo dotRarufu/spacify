@@ -4,14 +4,23 @@ import GlobalContext from "../contexts/globalContext";
 import { Factor } from "../utils/utils";
 import { getLowestRatio } from "../utils/math";
 import { Variants, motion, useAnimationControls } from "framer-motion";
-import fullConfig from "../utils/theme";
 import { buttonPrimary } from "../variants/buttonPrimary";
 
 import Input from "./Input";
+import { colors } from "../utils/theme";
 
 type ModalProps = {
   isActive: boolean;
   close: () => void;
+};
+
+const buttonTertiary: Variants = {
+  unhovered: {
+    color: colors["secondary-text"],
+  },
+  hovered: {
+    color: colors["primary-text"],
+  },
 };
 
 const Modal = ({ isActive, close }: ModalProps) => {
@@ -43,7 +52,6 @@ const Modal = ({ isActive, close }: ModalProps) => {
 
     if (isActive) {
       showModal();
-
       modalRef.current.show();
 
       return;
@@ -51,7 +59,6 @@ const Modal = ({ isActive, close }: ModalProps) => {
 
     dialogControl.start("exit");
     modalRef.current.close();
-    // closeModal();
   }, [dialogControl, isActive, showModal]);
 
   useClickAway(modalRef, closeModal);
@@ -70,15 +77,6 @@ const Modal = ({ isActive, close }: ModalProps) => {
     }
 
     setValue2(value);
-  };
-
-  const buttonTertiary: Variants = {
-    unhovered: {
-      color: fullConfig.theme.colors["secondary-text"],
-    },
-    hovered: {
-      color: fullConfig.theme.colors["primary-text"],
-    },
   };
 
   const buttonControl = useAnimationControls();
@@ -136,10 +134,7 @@ const Modal = ({ isActive, close }: ModalProps) => {
 
         <p
           style={{
-            color:
-              fullConfig.theme.colors[
-                value1 && value2 ? "primary-text" : "secondary-text"
-              ],
+            color: colors[value1 && value2 ? "primary-text" : "secondary-text"],
           }}
         >
           {value1 && value2 ? getLowestRatio(value1, value2) : "?"}

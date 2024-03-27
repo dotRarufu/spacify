@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import Check from "./icons/Check";
-import fullConfig from "../utils/theme";
+
 import {
   AnimatePresence,
   Variants,
@@ -8,6 +8,23 @@ import {
   useAnimationControls,
 } from "framer-motion";
 import GlobalContext from "../contexts/globalContext";
+import { colors } from "../utils/theme";
+
+const variant: Variants = {
+  invisible: {
+    transition: {
+      duration: 0.1,
+    },
+    opacity: 0,
+  },
+  visible: {
+    transition: {
+      duration: 0.1,
+    },
+
+    opacity: 1,
+  },
+};
 
 const Settings = () => {
   const { changeSettings } = useContext(GlobalContext)!;
@@ -19,22 +36,6 @@ const Settings = () => {
     changeSettings(isChecked);
   }, [backgroundControl, changeSettings, isChecked]);
 
-  const variant: Variants = {
-    invisible: {
-      transition: {
-        duration: 0.1,
-      },
-      opacity: 0,
-    },
-    visible: {
-      transition: {
-        duration: 0.1,
-      },
-
-      opacity: 1,
-    },
-  };
-
   return (
     <div className="flex flex-col sm:flex-row">
       <h2 className="mb-[0.5rem] min-w-[8rem] text-secondary-text sm:mb-[0]">
@@ -45,14 +46,11 @@ const Settings = () => {
         <div className="relative flex h-fit items-center overflow-clip rounded-inner border border-primary-color-500">
           <motion.div
             variants={variant}
-            className={
-              "border-primar-color-500 absolute left-1/2 top-1/2  -z-[1] aspect-square w-full -translate-x-1/2 -translate-y-1/2" +
-              " "
-            }
+            className="border-primar-color-500 absolute left-1/2 top-1/2 -z-[1] aspect-square w-full -translate-x-1/2 -translate-y-1/2"
             animate={backgroundControl}
             style={{
               backgroundColor: isChecked
-                ? fullConfig.theme.colors["primary-color-500"]
+                ? colors["primary-color-500"]
                 : "transparent",
             }}
           />
@@ -83,10 +81,7 @@ const Settings = () => {
           htmlFor="isDivisibleBy4"
           className="cursor-pointer transition-colors"
           style={{
-            color:
-              fullConfig.theme.colors[
-                isChecked ? "primary-text" : "secondary-text"
-              ],
+            color: colors[isChecked ? "primary-text" : "secondary-text"],
           }}
         >
           Divisible by 4

@@ -4,4 +4,4 @@ import tailwindConfig from "../../tailwind.config.js";
 
 const fullConfig = resolveConfig(tailwindConfig);
 
-export default fullConfig;
+export const { colors } = fullConfig.theme;

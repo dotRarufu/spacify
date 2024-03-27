@@ -83,7 +83,6 @@ export const generateFactorValues = (
   const possibleDuplicate = sortedCombined
     .map((n) => roundToNearestHundredth(n))
     .map((n) => n * baseFontSize)
-    // .map((n) => roundOff(n))
     .map((n) => (isDivisibleBy4 ? nearestDivisibleBy4(n) : roundOff(n)));
 
   const removeDuplicates = new Set(possibleDuplicate);
