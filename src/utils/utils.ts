@@ -1,10 +1,15 @@
-import { isOdd, nearestDivisibleBy4, roundToNearestHundredth } from './math';
+import {
+  isOdd,
+  nearestDivisibleBy4,
+  roundOff,
+  roundToNearestHundredth,
+} from "./math";
 
-const sortNumbers = (numbers: number[], direction: '>' | '<'): number[] => {
+const sortNumbers = (numbers: number[], direction: ">" | "<"): number[] => {
   const sortedNumbers = numbers.slice();
-  if (direction === '>') {
+  if (direction === ">") {
     return sortedNumbers.sort((a, b) => a - b);
-  } else if (direction === '<') {
+  } else if (direction === "<") {
     return sortedNumbers.sort((a, b) => b - a);
   } else {
     throw new Error("Invalid direction. Use '>' or '<'.");
@@ -30,7 +35,11 @@ const limit = 100;
 const lowestLimitValue = 0.25;
 const base = 1;
 
-export const generateFactorValues = (factor: Factor, baseFontSize: number) => {
+export const generateFactorValues = (
+  factor: Factor,
+  baseFontSize: number,
+  isDivisibleBy4: boolean,
+) => {
   const [f1, f2] = factor;
 
   let highestValue = base;
@@ -47,7 +56,7 @@ export const generateFactorValues = (factor: Factor, baseFontSize: number) => {
   }
 
   // Get the factor primes
-  const sorted = sortNumbers([...valuesToRight], '>');
+  const sorted = sortNumbers([...valuesToRight], ">");
   const f1Prime = getFactorPrime(f2, sorted[0]);
   const f2Prime = getFactorPrime(f1, sorted[1]);
 
@@ -70,11 +79,13 @@ export const generateFactorValues = (factor: Factor, baseFontSize: number) => {
   // 4
   const removeExtraBase = [...valuesToLeft].slice(1);
   const combined = [...removeExtraBase, ...valuesToRight];
-  const sortedCombined = sortNumbers(combined, '>');
+  const sortedCombined = sortNumbers(combined, ">");
   const possibleDuplicate = sortedCombined
-    .map(n => roundToNearestHundredth(n))
-    .map(n => n * baseFontSize)
-    .map(n => nearestDivisibleBy4(n));
+    .map((n) => roundToNearestHundredth(n))
+    .map((n) => n * baseFontSize)
+    // .map((n) => roundOff(n))
+    .map((n) => (isDivisibleBy4 ? nearestDivisibleBy4(n) : roundOff(n)));
+
   const removeDuplicates = new Set(possibleDuplicate);
 
   return [...removeDuplicates];

@@ -8,7 +8,7 @@ const About = () => {
       layout="position"
       className="flex flex-col items-baseline sm:flex-row"
     >
-      <h3 className="mb-[0.5rem] min-w-[8rem] pr-[2rem] text-secondary-text">
+      <h3 className="mb-[0.5rem] min-w-[8rem] pr-[2rem] text-secondary-text sm:mb-[0]">
         What is this for?
       </h3>
       <div className="w-full">

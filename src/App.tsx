@@ -10,6 +10,7 @@ import useToastLimit from "./components/hooks/useToastLimit";
 import GlobalContext from "./contexts/globalContext";
 import Base from "./components/Base";
 import { AnimatePresence, motion } from "framer-motion";
+import Settings from "./components/Settings";
 
 const toastSettings: DefaultToastOptions = {
   position: "bottom-center",
@@ -33,6 +34,7 @@ const App = () => {
   const [values, setValues] = useState<number[]>([]);
   const [selectedValue, setSelectedValue] = useState<number | null>(null);
   const [factors, setFactors] = useState(defaultFactors);
+  const [isDivisibleBy4, setIsDivisibleBy4] = useState(true);
 
   useToastLimit();
   const [clipboardState, copyToClipboard] = useCopyToClipboard();
@@ -54,6 +56,9 @@ const App = () => {
     changeFactor(f);
   };
 
+  const changeSettings = (isDivisibleBy4: boolean) =>
+    setIsDivisibleBy4(isDivisibleBy4);
+
   const globalContextValues = {
     factors,
     activeFactor: factor,
@@ -64,11 +69,12 @@ const App = () => {
     selectedValue,
     base,
     changeBase,
+    changeSettings,
   };
 
   useEffect(() => {
-    setValues(generateFactorValues(factor, base));
-  }, [base, factor]);
+    setValues(generateFactorValues(factor, base, isDivisibleBy4));
+  }, [base, factor, isDivisibleBy4]);
 
   return (
     <GlobalContext.Provider value={globalContextValues}>
@@ -78,10 +84,11 @@ const App = () => {
         <main className="flex flex-col gap-[2rem]">
           <Dropdown />
           <Base />
+          <Settings />
 
           <div className="flex flex-col items-baseline sm:flex-row">
             <h3
-              className="mb-[0.5rem] min-w-[8rem] text-secondary-text"
+              className="mb-[0.5rem] min-w-[8rem] text-secondary-text sm:mb-[0]"
               children="Values"
             />
 
@@ -95,7 +102,16 @@ const App = () => {
             >
               {values.map((v) => (
                 <AnimatePresence key={v}>
-                  <li
+                  <motion.li
+                    exit={{
+                      opacity: 0,
+                    }}
+                    initial={{
+                      opacity: 0,
+                    }}
+                    animate={{
+                      opacity: 1,
+                    }}
                     onClick={selectValue(v)}
                     className={
                       "min-w-[4em] cursor-pointer py-[1rem] text-center shadow-md shadow-transparent transition-transform hover:scale-110 hover:bg-primary-color-500 hover:shadow-md hover:shadow-primary-color-500" +

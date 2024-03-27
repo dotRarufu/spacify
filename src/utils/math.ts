@@ -57,3 +57,5 @@ export const getLowestRatio = (value1: number, value2: number): string => {
 
   return `${x} : ${y}`;
 };
+
+export const roundOff = (n: number) => Math.round(n);

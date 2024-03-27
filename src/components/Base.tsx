@@ -37,7 +37,7 @@ const Base = () => {
   return (
     <div className="flex flex-col items-baseline sm:flex-row">
       <h3
-        className="mb-[0.5rem] min-w-[8rem] text-secondary-text"
+        className="mb-[0.5rem] min-w-[8rem] text-secondary-text sm:mb-[0]"
         children="Base"
       />
 
@@ -68,7 +68,7 @@ const Base = () => {
         <AnimatePresence>
           {isFocused && (
             <motion.p
-              className="absolute left-[0] translate-y-full whitespace-nowrap text-[1rem] text-tertiary-text"
+              className="absolute left-[0] translate-y-full whitespace-nowrap text-[1rem] text-secondary-text"
               initial={{
                 opacity: 0,
                 y: "0.25rem",

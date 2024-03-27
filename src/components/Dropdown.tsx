@@ -30,7 +30,9 @@ const Dropdown = () => {
   const changeActiveFactor = (f: Factor) => () => changeFactor(f);
   return (
     <div className="flex flex-col items-baseline sm:flex-row">
-      <h2 className=" mb-[0.5rem] min-w-[8rem] text-secondary-text">Factor</h2>
+      <h2 className="mb-[0.5rem] min-w-[8rem] text-secondary-text sm:mb-[0]">
+        Factor
+      </h2>
       <div
         ref={containerRef}
         className="relative min-w-[8rem]"
