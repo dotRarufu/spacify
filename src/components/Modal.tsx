@@ -1,11 +1,4 @@
-import {
-  ChangeEvent,
-  useCallback,
-  useContext,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import { useCallback, useContext, useEffect, useRef, useState } from "react";
 import { useClickAway } from "react-use";
 import GlobalContext from "../contexts/globalContext";
 import { Factor } from "../utils/utils";
@@ -13,6 +6,8 @@ import { getLowestRatio } from "../utils/math";
 import { Variants, motion, useAnimationControls } from "framer-motion";
 import fullConfig from "../utils/theme";
 import { buttonPrimary } from "../variants/buttonPrimary";
+
+import Input from "./Input";
 
 type ModalProps = {
   isActive: boolean;
@@ -48,7 +43,6 @@ const Modal = ({ isActive, close }: ModalProps) => {
 
     if (isActive) {
       showModal();
-      // dialogControl.start(["takeFullHeight", "shadow"]);
 
       modalRef.current.show();
 
@@ -68,32 +62,14 @@ const Modal = ({ isActive, close }: ModalProps) => {
     addFactor(newFactor);
   };
 
-  const handleChange = (event: ChangeEvent<HTMLInputElement>, input: 1 | 2) => {
-    const { value, min, max } = event.target;
-    const newValue = Math.max(
-      Number(min),
-      Math.min(Number(max), Number(value)),
-    );
-
+  const changeValue = (input: 1 | 2) => (value: number | null) => {
     if (input === 1) {
-      setValue1(newValue);
+      setValue1(value);
 
       return;
     }
 
-    setValue2(newValue);
-  };
-
-  const inputVariant: Variants = {
-    noOutline: {
-      outlineStyle: "solid",
-      outlineWidth: "0px",
-      outlineColor: fullConfig.theme.colors["primary-color-700"],
-    },
-    visibleOutline: {
-      outlineWidth: "1px",
-      outlineColor: fullConfig.theme.colors["primary-color-500"],
-    },
+    setValue2(value);
   };
 
   const buttonTertiary: Variants = {
@@ -105,56 +81,54 @@ const Modal = ({ isActive, close }: ModalProps) => {
     },
   };
 
+  const buttonControl = useAnimationControls();
+
+  useEffect(() => {
+    const valuesAreFilled = value1 && value2;
+
+    if (!valuesAreFilled) {
+      buttonControl.start("unhovered");
+      return;
+    }
+
+    buttonControl.start("hovered");
+  }, [buttonControl, value1, value2]);
+
   return (
     <motion.dialog
       ref={modalRef}
-      className="absolute left-[0] top-[1rem] z-[2] m-[0] w-screen max-w-[15.875rem] overflow-clip rounded-outer border border-primary-color-700 bg-neutral p-[1rem] sm:left-[1rem] sm:top-[0] sm:translate-y-[0]"
+      className="absolute left-[0] top-[1rem] z-[2] m-[0] w-screen max-w-[15.875rem] overflow-clip rounded-outer border border-primary-color-700 bg-neutral p-[1rem] shadow-md shadow-primary-color-500 sm:left-[1rem] sm:top-[0] sm:translate-y-[0]"
       animate={dialogControl}
       transition={{ duration: 0.2 }}
       variants={{
         takeFullHeight: {
           height: "fit-content",
-
           opacity: 1,
         },
 
         initial: {
           opacity: 0,
           height: 0,
-          boxShadow: "none",
         },
         exit: {
           opacity: 0,
           height: 0,
-          boxShadow: "none",
         },
       }}
     >
       <h3 className="mb-[1rem] text-primary-text">Custom value</h3>
       <div className="flex flex-col gap-[0.5rem]">
-        <motion.input
-          type="number"
-          min={1}
-          max={100}
-          className="text-secondary rounded-inner border border-primary-color-700 bg-transparent p-[0.5rem] text-primary-text"
-          placeholder="Value 1"
-          value={value1 + ""}
-          onChange={(e) => handleChange(e, 1)}
-          variants={inputVariant}
-          initial="noOutline"
-          whileFocus="visibleOutline"
+        <Input
+          value={value1}
+          changeValue={changeValue(1)}
+          number={1}
+          otherValue={value2}
         />
-        <motion.input
-          min={1}
-          max={100}
-          type="number"
-          className="text-secondary rounded-inner border border-primary-color-700 bg-transparent p-[0.5rem] text-primary-text"
-          placeholder="Value 2"
-          value={value2 + ""}
-          onChange={(e) => handleChange(e, 2)}
-          variants={inputVariant}
-          initial="noOutline"
-          whileFocus="visibleOutline"
+        <Input
+          value={value2}
+          changeValue={changeValue(2)}
+          number={2}
+          otherValue={value1}
         />
       </div>
       <div className="mt-[1rem] flex justify-between">
@@ -182,6 +156,7 @@ const Modal = ({ isActive, close }: ModalProps) => {
             setNewValues();
             closeModal();
           }}
+          animate={buttonControl}
           variants={buttonPrimary}
           whileHover="hovered"
           whileTap="hovered"
