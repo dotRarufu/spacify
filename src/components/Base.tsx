@@ -35,9 +35,12 @@ const Base = () => {
   const [value, setValue] = useState<number | null>(16);
   const { changeBase } = useContext(GlobalContext)!;
   const [isFocused, setIsFocused] = useState(false);
+  const [isSet, setIsSet] = useState(false);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { value, min, max } = event.target;
+
+    setIsSet(false);
 
     if (value === "") {
       setValue(null);
@@ -53,7 +56,10 @@ const Base = () => {
     setValue(newValue);
   };
 
-  const handleDone = () => changeBase(value);
+  const handleDone = () => {
+    changeBase(value);
+    setIsSet(true);
+  };
 
   return (
     <div className="flex flex-col items-baseline sm:flex-row">
@@ -62,7 +68,7 @@ const Base = () => {
         children="Base"
       />
 
-      <div className="relative max-w-[8rem] ">
+      <div className="relative max-w-[6rem] ">
         <label htmlFor="base" className="hidden">
           Base
         </label>
@@ -82,7 +88,7 @@ const Base = () => {
           whileFocus="visibleOutline"
         />
         <motion.button
-          className="absolute right-[0] h-full rounded-r-inner border border-l-0 border-primary-color-500 bg-primary-color-500 px-[0.5rem]"
+          className="absolute right-[0] h-full rounded-r-inner border border-l-0 border-primary-color-500 bg-primary-color-500 px-[0.75rem]"
           onClick={handleDone}
           variants={buttonPrimary}
           whileHover="hovered"
@@ -96,8 +102,24 @@ const Base = () => {
             <motion.p
               className="absolute left-[0] top-full whitespace-nowrap text-[1rem] text-secondary-text"
               variants={tipVariant}
+              initial="initial"
+              animate="animate"
+              exit="exit"
             >
               Tip: 16 is a good start
+            </motion.p>
+          )}
+        </AnimatePresence>
+        <AnimatePresence>
+          {!isFocused && !isSet && (
+            <motion.p
+              className="absolute left-[0] top-full whitespace-nowrap text-[1rem] text-primary-text"
+              variants={tipVariant}
+              initial="initial"
+              animate="animate"
+              exit="exit"
+            >
+              Changes not set
             </motion.p>
           )}
         </AnimatePresence>
