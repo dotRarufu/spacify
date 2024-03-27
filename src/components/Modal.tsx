@@ -132,7 +132,7 @@ const Modal = ({ isActive, close }: ModalProps) => {
         />
       </div>
       <div className="mt-[1rem] flex justify-between">
-        <label className="text-secondary-text">Ratio</label>
+        <p className="text-secondary-text">Ratio</p>
 
         <p
           style={{

@@ -87,7 +87,7 @@ const App = () => {
           <Settings />
 
           <div className="flex flex-col items-baseline sm:flex-row">
-            <h3
+            <h2
               className="mb-[0.5rem] min-w-[8rem] text-secondary-text sm:mb-[0]"
               children="Values"
             />
@@ -98,7 +98,7 @@ const App = () => {
                 bounce: 0,
                 bounceDamping: 0,
               }}
-              className="flex w-full max-w-[20rem] flex-wrap overflow-clip rounded-outer bg-primary-color-900"
+              className="flex w-fit max-w-[20rem] flex-wrap justify-center overflow-clip rounded-outer bg-primary-color-900 [@media(min-width:441px)]:justify-start"
             >
               {values.map((v) => (
                 <AnimatePresence key={v}>
@@ -129,8 +129,10 @@ const App = () => {
           <Difference />
 
           <About />
-          <div className="text-tertiary-text">v.0.2.1</div>
         </main>
+        <footer className="my-[2rem] text-tertiary-text">
+          <p>v.0.2.1</p>
+        </footer>
       </div>
     </GlobalContext.Provider>
   );

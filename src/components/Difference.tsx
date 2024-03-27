@@ -13,7 +13,7 @@ const Difference = () => {
   const renderNoValue = () => {
     if (!selected)
       return (
-        <div className="py-[0.5rem] text-secondary-text">No value selected</div>
+        <p className="py-[0.5rem] text-secondary-text">No value selected</p>
       );
 
     return null;

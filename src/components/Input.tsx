@@ -75,7 +75,12 @@ const Input = ({ changeValue, value, number, otherValue }: InputProps) => {
       animate={control}
       className="flex gap-[1rem] overflow-clip rounded-inner bg-transparent"
     >
+      <label htmlFor="value1" className="hidden">
+        Value {number}
+      </label>
       <input
+        id={"value" + number}
+        name={"value" + number}
         type="number"
         min={-1}
         max={100}

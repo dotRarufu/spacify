@@ -36,13 +36,18 @@ const Base = () => {
 
   return (
     <div className="flex flex-col items-baseline sm:flex-row">
-      <h3
+      <h2
         className="mb-[0.5rem] min-w-[8rem] text-secondary-text sm:mb-[0]"
         children="Base"
       />
 
       <div className="relative max-w-[8rem] ">
+        <label htmlFor="base" className="hidden">
+          Base
+        </label>
         <motion.input
+          id="base"
+          name="base"
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
           min={1}

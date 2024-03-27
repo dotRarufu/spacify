@@ -12,7 +12,7 @@ const Dropdown = () => {
 
   const [isActive, setIsActive] = useState(false);
   const handleClick = () => setIsActive(!isActive);
-  const containerRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLUListElement>(null);
   useClickAway(containerRef, () => setIsActive(false));
 
   const [isModalActive, setIsModalActive] = useState(false);
@@ -33,13 +33,13 @@ const Dropdown = () => {
       <h2 className="mb-[0.5rem] min-w-[8rem] text-secondary-text sm:mb-[0]">
         Factor
       </h2>
-      <div
+      <ul
         ref={containerRef}
         className="relative min-w-[8rem]"
         onClick={handleClick}
       >
         {/* //todo: improve html semantics */}
-        <motion.p
+        <motion.li
           className="flex cursor-pointer items-center justify-between gap-[0.5rem] rounded-inner border border-primary-color-500 px-[0.75rem] py-[0.5rem]"
           variants={variant}
           initial="initial"
@@ -47,7 +47,7 @@ const Dropdown = () => {
         >
           {activeFactor[0]} - {activeFactor[1]}
           <ArrowDown />
-        </motion.p>
+        </motion.li>
         <AnimatePresence>
           {isActive && (
             <motion.div
@@ -82,7 +82,7 @@ const Dropdown = () => {
               className="left-0 top-0 absolute z-[1] mt-[0.25rem] w-full overflow-clip rounded-inner border border-primary-color-700 bg-neutral"
             >
               {factors.map(([f1, f2]) => (
-                <motion.p
+                <motion.li
                   variants={variant}
                   initial="initial"
                   whileHover="hoverOrTapped"
@@ -92,9 +92,9 @@ const Dropdown = () => {
                   className="cursor-pointer px-[0.75rem] py-[0.5rem]"
                 >
                   {f1} - {f2}
-                </motion.p>
+                </motion.li>
               ))}
-              <motion.p
+              <motion.li
                 variants={variant}
                 initial="initial"
                 whileHover="hoverOrTapped"
@@ -103,11 +103,11 @@ const Dropdown = () => {
                 onClick={openModal}
               >
                 Custom
-              </motion.p>
+              </motion.li>
             </motion.div>
           )}
         </AnimatePresence>
-      </div>
+      </ul>
 
       <div className="relative self-start sm:relative ">
         <Modal isActive={isModalActive} close={closeModal} />

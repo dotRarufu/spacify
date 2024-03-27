@@ -37,9 +37,9 @@ const Settings = () => {
 
   return (
     <div className="flex flex-col sm:flex-row">
-      <h3 className="mb-[0.5rem] min-w-[8rem] text-secondary-text sm:mb-[0]">
+      <h2 className="mb-[0.5rem] min-w-[8rem] text-secondary-text sm:mb-[0]">
         <div className="w-fit">Settings</div>
-      </h3>
+      </h2>
 
       <div className="flex w-full max-w-[320px]  gap-[0.5rem]">
         <div className="relative flex h-fit items-center overflow-clip rounded-inner border border-primary-color-500">
@@ -58,6 +58,8 @@ const Settings = () => {
           />
 
           <input
+            id="isDivisibleBy4"
+            name="isDivisibleBy4"
             checked={isChecked}
             onChange={(e) => setIsChecked(e.currentTarget.checked)}
             className="relative z-[2] aspect-square h-[1.25rem] cursor-pointer appearance-none"
@@ -78,7 +80,8 @@ const Settings = () => {
           </AnimatePresence>
         </div>
         <label
-          className="transition-colors"
+          htmlFor="isDivisibleBy4"
+          className="cursor-pointer transition-colors"
           style={{
             color:
               fullConfig.theme.colors[
