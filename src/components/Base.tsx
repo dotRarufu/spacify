@@ -35,7 +35,7 @@ const Base = () => {
   const [value, setValue] = useState<number | null>(16);
   const { changeBase } = useContext(GlobalContext)!;
   const [isFocused, setIsFocused] = useState(false);
-  const [isSet, setIsSet] = useState(false);
+  const [isSet, setIsSet] = useState(true);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { value, min, max } = event.target;
