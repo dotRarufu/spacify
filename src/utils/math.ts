@@ -59,3 +59,8 @@ export const getLowestRatio = (value1: number, value2: number): string => {
 };
 
 export const roundOff = (n: number) => Math.round(n);
+
+export const roundToDecimal = (value: number, decimals: number): number => {
+  const factor = Math.pow(10, decimals);
+  return Math.round(value * factor) / factor;
+};

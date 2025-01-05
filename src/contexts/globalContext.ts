@@ -11,7 +11,7 @@ type GlobalContextValues = {
   selectedValue: number | null;
   base: number;
   changeBase: (n: number | null) => void;
-  changeSettings: (isDivisibleBy4: boolean) => void;
+  changeSettings: (isDivisibleBy4: boolean, isCopiedAsRem: boolean) => void;
 };
 
 const GlobalContext = createContext<GlobalContextValues | null>(null);

@@ -2,6 +2,7 @@ import {
   isOdd,
   nearestDivisibleBy4,
   roundOff,
+  roundToDecimal,
   roundToNearestHundredth,
 } from "./math";
 
@@ -88,4 +89,8 @@ export const generateFactorValues = (
   const removeDuplicates = new Set(possibleDuplicate);
 
   return [...removeDuplicates];
+};
+
+export const convertToRem = (number: number, base: number) => {
+  return roundToDecimal(number / base, 4) + "rem";
 };

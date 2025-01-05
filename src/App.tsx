@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Header from "./components/Header";
 import Difference from "./components/Difference";
 import About from "./components/About";
-import { Factor, generateFactorValues } from "./utils/utils";
+import { convertToRem, Factor, generateFactorValues } from "./utils/utils";
 import Dropdown from "./components/Dropdown";
 import { useCopyToClipboard } from "react-use";
 import toast, { Toaster } from "react-hot-toast";
@@ -22,6 +22,7 @@ const App = () => {
   const [selectedValue, setSelectedValue] = useState<number | null>(null);
   const [factors, setFactors] = useState(defaultFactors);
   const [isDivisibleBy4, setIsDivisibleBy4] = useState(true);
+  const [isCopiedAsRem, setIsCopiedAsRem] = useState(true);
 
   useToastLimit();
   const [clipboardState, copyToClipboard] = useCopyToClipboard();
@@ -34,7 +35,10 @@ const App = () => {
   const changeFactor = (f: Factor) => setFactor(f);
   const selectValue = (n: number) => () => {
     setSelectedValue(n);
-    copyToClipboard(n.toString());
+
+    const value = isCopiedAsRem ? convertToRem(n, base) : n.toString();
+
+    copyToClipboard(value);
     if (clipboardState.error) {
       toast.error("Failed to copy");
 
@@ -47,8 +51,10 @@ const App = () => {
     changeFactor(f);
   };
 
-  const changeSettings = (isDivisibleBy4: boolean) =>
+  const changeSettings = (isDivisibleBy4: boolean, isCopiedAsRem: boolean) => {
+    setIsCopiedAsRem(isCopiedAsRem);
     setIsDivisibleBy4(isDivisibleBy4);
+  };
 
   const globalContextValues = {
     factors,
